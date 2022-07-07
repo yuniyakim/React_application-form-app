@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Form from "./Form";
+import {Form} from "./Form";
+import {Provider} from "react-redux";
 import logo from '../assets/logo.svg';
+import store from '../store';
 
 const ApplicationContainer = styled.div`
   display: flex;
@@ -52,22 +54,24 @@ const TextLink = styled.a`
 
 const Application = () => {
   return (
-    <ApplicationContainer>
-      <TextContainer>
-        <Logo src={logo} alt="logo" />
-        <Subtitle>Оставьте заявку и станьте частью нашей команды</Subtitle>
-        <Text>
-          <TextParagraph>Компания SK Design приглашает к взаимовыгодному сотрудничеству креативных дизайнеров, архитекторов и декораторов,
-            дизайн-бюро и интерьерные студии — все, кто дизайн интерьера сделали своим призванием.</TextParagraph>
-          <TextParagraph>Партнерство мы видим как доверительные отношения, основанные на честности реализации бизнес идей в сфере создания
-            и продаж современной, качественной, удобной, функциональной и эксклюзивной мебели.</TextParagraph>
-          <TextParagraph>Ознакомиться с проектами можете в нашем <TextLink href='https://skdesign.ru/portfolio'>портфолио</TextLink>. Если Вы оформляете интерьеры жилых или коммерческих помещений —
-            мы с радостью поможем Вам: составим уникальные условия сотрудничества, предоставим 3D модели (уточняйте у менеджеров)
-            и разработаем коммерческое предложение к Вашему проекту или изображениям.</TextParagraph>
-        </Text>
-      </TextContainer>
-      <Form />
-    </ApplicationContainer>
+    <Provider store={store}>
+      <ApplicationContainer>
+        <TextContainer>
+          <Logo src={logo} alt="logo" />
+          <Subtitle>Оставьте заявку и станьте частью нашей команды</Subtitle>
+          <Text>
+            <TextParagraph>Компания SK Design приглашает к взаимовыгодному сотрудничеству креативных дизайнеров, архитекторов и декораторов,
+              дизайн-бюро и интерьерные студии — все, кто дизайн интерьера сделали своим призванием.</TextParagraph>
+            <TextParagraph>Партнерство мы видим как доверительные отношения, основанные на честности реализации бизнес идей в сфере создания
+              и продаж современной, качественной, удобной, функциональной и эксклюзивной мебели.</TextParagraph>
+            <TextParagraph>Ознакомиться с проектами можете в нашем <TextLink href='https://skdesign.ru/portfolio'>портфолио</TextLink>. Если Вы оформляете интерьеры жилых или коммерческих помещений —
+              мы с радостью поможем Вам: составим уникальные условия сотрудничества, предоставим 3D модели (уточняйте у менеджеров)
+              и разработаем коммерческое предложение к Вашему проекту или изображениям.</TextParagraph>
+          </Text>
+        </TextContainer>
+        <Form />
+      </ApplicationContainer>
+    </Provider>
   );
 }
 

@@ -7,7 +7,7 @@ import {Field, WrappedFieldProps} from 'redux-form';
 
 const CustomizedTextField = styled(TextFieldMUI)`
   width: 300px;
-  height: 50px;
+  margin-top: 8.625px;
 
   .Mui-focused {
     .MuiOutlinedInput-notchedOutline {
@@ -26,22 +26,34 @@ const CustomizedTextField = styled(TextFieldMUI)`
     border: 2px solid #E3E3E3;
     border-radius: 8px;
   }
+
+  .MuiOutlinedInput-root {
+    height: 50px;
+  }
+
+  .MuiOutlinedInput-input {
+    height: 17px;
+    border-radius: 8px;
+  }
 `;
 
-const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps & string> = ({
+const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
+                                                                      placeholder,
                                                                       input,
                                                                       label,
                                                                       meta: {touched, error},
-                                                                      placeholder,
+                                                                      ...custom
                                                                     }) => (
   <CustomizedTextField
-    error={touched && error}
+    error={!!(touched && error)}
     {...input}
+    {...custom}
     onChange={(event) => input.onChange(event.target.value)}
     variant="outlined"
     label={label}
     placeholder={placeholder}
     InputLabelProps={{shrink: true}}
+    helperText={!!(touched && error) ? error : ''}
   />
 );
 
@@ -50,7 +62,7 @@ const TextField = (props: {fieldName: string, required?: boolean, placeholder: s
     <FormControl>
       {/*<InputLabel>{props.required ? props.fieldName + '*' : props.fieldName}</InputLabel>*/}
       <Field name={props.fieldName} component={TextFieldComponent} label={props.fieldName} placeholder={props.placeholder} />
-      {props.required ? <FormHelperText error>Обязательное поле</FormHelperText> : <></>}
+      {/*{props.required ? <FormHelperText error>Обязательное поле</FormHelperText> : <></>}*/}
     </FormControl>
   )
 }

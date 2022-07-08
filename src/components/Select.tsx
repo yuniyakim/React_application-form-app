@@ -8,9 +8,12 @@ import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
+const CustomizedFormControl = styled(FormControl)`
+  margin-top: 8.625px;
+`;
+
 const CustomizedSelect = styled(SelectMUI)`
   width: 300px;
-  height: 50px;
   text-align: start;
   background-color: #FFFFFF;
   font-family: 'Open Sans', sans-serif;
@@ -26,6 +29,7 @@ const CustomizedSelect = styled(SelectMUI)`
   }
   
   .MuiOutlinedInput-notchedOutline {
+    height: 50px;
     border: 2px solid #E3E3E3;
   }
   
@@ -39,32 +43,35 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
                                                                       input,
                                                                       label,
                                                                       meta: {touched, error},
-                                                                      children
+                                                                      children, ...custom
                                                                     }) => (
-  <CustomizedSelect
-    error={touched && error}
-    {...input}
-    onChange={(event) => input.onChange(event.target.value)}
-    variant="outlined"
-    children={children}
-    label={label}
-    IconComponent={KeyboardArrowDownRoundedIcon}
-  />
+
+  <CustomizedFormControl>
+    <InputLabel>{label}</InputLabel>
+    {/*//props.required ? props.fieldName + ' *' : props.fieldName}</InputLabel>*/}
+      <CustomizedSelect
+        error={!!(touched && error)}
+        {...input}
+        {...custom}
+        onChange={(event) => input.onChange(event.target.value)}
+        variant="outlined"
+        children={children}
+        label={label}
+        IconComponent={KeyboardArrowDownRoundedIcon}
+      />
+    {!!(touched && error) ? <FormHelperText error>{error}</FormHelperText> : ''}
+  </CustomizedFormControl>
 );
 
 const Select = (props: { fieldName: string, selectValues: string[], required?: boolean }) => {
   return (
-    <FormControl>
-      <InputLabel>{props.required ? props.fieldName + '*' : props.fieldName}</InputLabel>
-      <Field name={props.fieldName} component={SelectComponent} label={props.fieldName}>
-        {props.selectValues.map((value) => (
-          <MenuItem key={value} value={value}>
-            {value}
-          </MenuItem>
-        ))}
-      </Field>
-      {props.required ? <FormHelperText error>Обязательное поле</FormHelperText> : <></>}
-    </FormControl>
+    <Field name={props.fieldName} component={SelectComponent} label={props.fieldName} warning={''}>
+      {props.selectValues.map((value) => (
+        <MenuItem key={value} value={value}>
+          {value}
+        </MenuItem>
+      ))}
+    </Field>
   )
 }
 

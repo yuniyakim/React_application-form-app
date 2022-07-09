@@ -3,6 +3,7 @@ import FormControl from '@mui/material/FormControl';
 import {default as TextFieldMUI, TextFieldProps} from '@mui/material/TextField';
 import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
+import {createTextMask} from 'redux-form-input-masks';
 
 // const StyledFormControl = styled(FormControl)`
 //   .MuiInputLabel-root {
@@ -39,7 +40,7 @@ const StyledTextField = styled(TextFieldMUI)<{error?: boolean, size?: 'small'|'m
   }
 
   .MuiOutlinedInput-input {
-    height: 19px;
+    height: 33px;
     border-radius: 8px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
@@ -90,10 +91,31 @@ const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
   />
 );
 
-const TextField = (props: {fieldName: string, label: string, placeholder: string, size?: 'small'|'medium'}) => {
+const TextField = (props: {fieldName: string, label: string, placeholder: string, size?: 'small'|'medium', mask?: string}) => {
+  if (!props.mask) {
+    return (
+      <FormControl>
+        <Field name={props.fieldName} component={TextFieldComponent} label={props.label} placeholder={props.placeholder} size={props.size} />
+      </FormControl>
+    )
+  }
+
+  const mask = createTextMask({
+    pattern: props.mask,
+    guide: false,
+    allowEmpty: true,
+  });
+
   return (
     <FormControl>
-      <Field name={props.fieldName} component={TextFieldComponent} label={props.label} placeholder={props.placeholder} size={props.size} />
+      <Field
+        name={props.fieldName}
+        component={TextFieldComponent}
+        label={props.label}
+        placeholder={props.placeholder}
+        size={props.size}
+        {...mask}
+      />
     </FormControl>
   )
 }

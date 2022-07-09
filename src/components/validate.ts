@@ -11,7 +11,7 @@ const validate = (values: FormParams): any => {
 
   if (!values.phone) {
     errors.phone = 'Обязательное поле';
-  } else if (values.phone.length < 2) {
+  } else if (values.phone.length < 10) {
     errors.phone = 'Неккоректный номер';
   }
 

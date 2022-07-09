@@ -4,7 +4,13 @@ import {default as TextFieldMUI, TextFieldProps} from '@mui/material/TextField';
 import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 
-const StyledTextField = styled(TextFieldMUI)`
+// const StyledFormControl = styled(FormControl)`
+//   .MuiInputLabel-root {
+//     color: ${({error = false}) => error ? 'green' : 'yellow};'//'#EB5E55' : '#353238'};
+//     }
+// `;
+
+const StyledTextField = styled(TextFieldMUI)<{error?: boolean}>`
   width: 300px;
   margin-top: 8.625px;
   margin-bottom: 20px;
@@ -15,30 +21,50 @@ const StyledTextField = styled(TextFieldMUI)`
       border-radius: 8px;
     }
   }
-
+  
   .MuiOutlinedInput-notchedOutline {
-    height: 50px;
+    height: 52px;
     text-align: start;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     font-size: 14px;
-    color: #353238;
+    //color: ${({error = false}) => error ? 'green' : 'pink'};//EB5E55
+    //color: #353238;
     border: 2px solid #E3E3E3;
     border-radius: 8px;
   }
 
   .MuiOutlinedInput-root {
-    height: 48px;
+    height: 50px;
   }
 
   .MuiOutlinedInput-input {
-    height: 17px;
+    height: 19px;
     border-radius: 8px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+
+    &::placeholder {
+      color: #CDCAD0;
+    }
   }
 
+  // Label
+  .MuiInputLabel-root {
+    font-family: 'SF UI Display', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    color: ${({error = false}) => error ? '#EB5E55' : '#353238'};
+  }
+
+  // Helper
   .MuiFormHelperText-root {
     margin-top: 8px;
     margin-left: 15px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
   }
 `;
 
@@ -62,11 +88,11 @@ const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
   />
 );
 
-const TextField = (props: {fieldName: string, required?: boolean, placeholder: string}) => {
+const TextField = (props: {fieldName: string, label: string, required?: boolean, placeholder: string}) => {
   return (
     <FormControl>
       {/*<InputLabel>{props.required ? props.fieldName + '*' : props.fieldName}</InputLabel>*/}
-      <Field name={props.fieldName} component={TextFieldComponent} label={props.fieldName} placeholder={props.placeholder} />
+      <Field name={props.fieldName} component={TextFieldComponent} label={props.label} placeholder={props.placeholder} />
       {/*{props.required ? <FormHelperText error>Обязательное поле</FormHelperText> : <></>}*/}
     </FormControl>
   )

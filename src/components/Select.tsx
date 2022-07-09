@@ -8,20 +8,12 @@ import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
-const StyledFormControl = styled(FormControl)<{error?: boolean}>`
+const StyledFormControl = styled(FormControl)`
   margin-top: 8.625px;
   margin-bottom: 20px;
-  
-  .MuiInputLabel-root {
-    &.Mui-focused {
-      color: ${({error = false}) => error ? '#EB5E55' : '#0086A8'};
-    }
-
-    color: ${({error = false}) => error ? '#EB5E55' : '#828282'};
-  }
 
   .MuiOutlinedInput-root {
-    height: 48px;
+    height: 50px;
   }
 `;
 
@@ -35,12 +27,6 @@ const StyledSelect = styled(SelectMUI)<{error?: boolean}>`
   color: ${({error = false}) => error ? '#EB5E55' : '#353238'}; ;
   border-radius: 8px;
   
-  //&.Mui-error {
-  //  .MuiOutlinedInput-notchedOutline {
-  //    border-color: greenyellow !important;
-  //  }
-  //}
-  
   .Mui-focused {
     .MuiOutlinedInput-notchedOutline {
       border-color: #0086A8;
@@ -48,20 +34,58 @@ const StyledSelect = styled(SelectMUI)<{error?: boolean}>`
   }
   
   .MuiOutlinedInput-notchedOutline {
-    height: 50px;
-    //border: 2px solid #E3E3E3;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    height: 52px;
     border: 2px solid ${({error = false}) => error ? '#EB5E55 !important' : '#E3E3E3'};
   }
-  
+
+  // Icon
   .MuiSvgIcon-root {
     fill: #353238;
     width: 25px;
   }
+
+  // Dropdown list
+  .MuiPaper-root {
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 1px solid #E3E3E3;
+    border-radius: 8px;
+  }
 `;
+
+const StyledMenuItem = styled(MenuItem)`
+  max-height: 22px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: #353238;
+  border: 1px solid #E3E3E3;
+`;
+
+const StyledInputLabel= styled(InputLabel)<{error?: boolean}>`
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color: ${({error = false}) => error ? '#EB5E55' : '#353238'};
+  
+  &.Mui-focused {
+    color: ${({error = false}) => error ? '#EB5E55' : '#0086A8 !important'};
+  }
+  
+  &.MuiInputLabel-shrink {
+    color: ${({error = false}) => error ? '#EB5E55' : '#828282'};
+  }
+`
 
 const StyledFormHelperText= styled(FormHelperText)`
   margin-top: 8px;
   margin-left: 15px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
   color: #EB5E55 !important;
 `
 
@@ -73,9 +97,8 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
                                                                       ...custom
                                                                     }) => (
 
-  <StyledFormControl error={!!(touched && error)}>
-    <InputLabel>{label}</InputLabel>
-    {/*//props.required ? props.fieldName + ' *' : props.fieldName}</InputLabel>*/}
+  <StyledFormControl>
+    <StyledInputLabel error={!!(touched && error)}>{label}</StyledInputLabel>
       <StyledSelect
         error={!!(touched && error)}
         {...input}
@@ -85,18 +108,19 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
         children={children}
         label={label}
         IconComponent={KeyboardArrowDownRoundedIcon}
+        MenuProps={{ disablePortal: true }}
       />
     {!!(touched && error) ? <StyledFormHelperText error>Обязательное поле</StyledFormHelperText> : ''}
   </StyledFormControl>
 );
 
-const Select = (props: { fieldName: string, selectValues: string[], required?: boolean }) => {
+const Select = (props: { fieldName: string, label: string, selectValues: string[], required?: boolean }) => {
   return (
-    <Field name={props.fieldName} component={SelectComponent} label={props.fieldName} warning={''}>
+    <Field name={props.fieldName} component={SelectComponent} label={props.label} warning={''}>
       {props.selectValues.map((value) => (
-        <MenuItem key={value} value={value}>
+        <StyledMenuItem key={value} value={value}>
           {value}
-        </MenuItem>
+        </StyledMenuItem>
       ))}
     </Field>
   )

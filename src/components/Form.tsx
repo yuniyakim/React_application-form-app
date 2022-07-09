@@ -28,9 +28,9 @@ const FormComponent: React.FC<InjectedFormProps> = (props) => {
         click
       </Button>
       <Button disabled>don't click</Button>
-      <TextField required fieldName="name" placeholder="Иван" />
-      <Select required fieldName="field1" selectValues={['first', 'second', 'third']} />
-      <Select fieldName="field2" selectValues={['one', 'two', 'three']} />
+      <TextField required fieldName="name" label="Ваше имя *" placeholder="Иван" />
+      <Select required fieldName="field1" label="Выберите город *" selectValues={['first', 'second', 'third']} />
+      <Select fieldName="field2" label="Выберите город * " selectValues={['one', 'two', 'three']} />
     </FormContainer>
   );
 }

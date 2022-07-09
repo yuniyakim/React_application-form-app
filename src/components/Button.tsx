@@ -33,13 +33,15 @@ const StyledButton = styledComponents.div<{disabled?: boolean}>`
 const StyledCircularProgress = styled(CircularProgress)<{loading?: boolean}>`
   color: #FFFFFF;
   display: ${({loading = false}) => loading ? 'flex' : 'none'};
+  width: 30px !important;
+  height: 30px !important;
 `;
 
 const Button: React.FC<DivProps> = (props) => {
   return (
     <StyledButton disabled={props.disabled} onClick={props.onClick}>
-      {props.children}
-      <StyledCircularProgress loading={props.loading} />
+      {props.loading && ! props.disabled ? '' : props.children}
+      <StyledCircularProgress loading={props.loading && ! props.disabled} />
     </StyledButton>
   )
 }

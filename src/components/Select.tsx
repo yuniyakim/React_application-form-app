@@ -8,11 +8,11 @@ import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
-const CustomizedFormControl = styled(FormControl)`
+const StyledFormControl = styled(FormControl)`
   margin-top: 8.625px;
 `;
 
-const CustomizedSelect = styled(SelectMUI)`
+const StyledSelect = styled(SelectMUI)`
   width: 300px;
   text-align: start;
   background-color: #FFFFFF;
@@ -43,13 +43,14 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
                                                                       input,
                                                                       label,
                                                                       meta: {touched, error},
-                                                                      children, ...custom
+                                                                      children,
+                                                                      ...custom
                                                                     }) => (
 
-  <CustomizedFormControl>
+  <StyledFormControl>
     <InputLabel>{label}</InputLabel>
     {/*//props.required ? props.fieldName + ' *' : props.fieldName}</InputLabel>*/}
-      <CustomizedSelect
+      <StyledSelect
         error={!!(touched && error)}
         {...input}
         {...custom}
@@ -60,7 +61,7 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
         IconComponent={KeyboardArrowDownRoundedIcon}
       />
     {!!(touched && error) ? <FormHelperText error>{error}</FormHelperText> : ''}
-  </CustomizedFormControl>
+  </StyledFormControl>
 );
 
 const Select = (props: { fieldName: string, selectValues: string[], required?: boolean }) => {

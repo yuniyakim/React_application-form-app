@@ -5,7 +5,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 
-const CustomizedTextField = styled(TextFieldMUI)`
+const StyledTextField = styled(TextFieldMUI)`
   width: 300px;
   margin-top: 8.625px;
 
@@ -15,7 +15,7 @@ const CustomizedTextField = styled(TextFieldMUI)`
       border-radius: 8px;
     }
   }
-  
+
   .MuiOutlinedInput-notchedOutline {
     height: 50px;
     text-align: start;
@@ -38,13 +38,13 @@ const CustomizedTextField = styled(TextFieldMUI)`
 `;
 
 const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
-                                                                      placeholder,
-                                                                      input,
-                                                                      label,
-                                                                      meta: {touched, error},
-                                                                      ...custom
-                                                                    }) => (
-  <CustomizedTextField
+                                                                            placeholder,
+                                                                            input,
+                                                                            label,
+                                                                            meta: {touched, error},
+                                                                            ...custom
+                                                                          }) => (
+  <StyledTextField
     error={!!(touched && error)}
     {...input}
     {...custom}

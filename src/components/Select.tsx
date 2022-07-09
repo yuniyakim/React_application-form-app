@@ -29,9 +29,9 @@ const StyledSelect = styled(SelectMUI)<{error?: boolean, size?: 'small'|'medium'
   color: ${({error = false}) => error ? '#EB5E55' : '#353238'}; ;
   border-radius: 8px;
   
-  .Mui-focused {
+  &.Mui-focused {
     .MuiOutlinedInput-notchedOutline {
-      border-color: #0086A8;
+      border-color: #0086A8 !important;
     }
   }
   
@@ -51,13 +51,13 @@ const StyledSelect = styled(SelectMUI)<{error?: boolean, size?: 'small'|'medium'
 
   // Dropdown list
   .MuiPaper-root {
-    border: 1px solid #E3E3E3;
+    border: 2px solid #E3E3E3;
+    border-radius: 8px;
+    margin-top: -1px;
 
     .MuiList-root {
       padding-top: 0;
       padding-bottom: 0;
-      border: 1px solid #E3E3E3;
-      border-radius: 8px;
     }
   }
 `;
@@ -68,7 +68,12 @@ const StyledMenuItem = styled(MenuItem)`
   font-weight: 400;
   font-size: 14px;
   color: #353238;
-  border: 1px solid #E3E3E3;
+  padding-left: 15px;
+  border-bottom: 2px solid #E3E3E3;
+  
+  &:last-child {
+    border-bottom: none;
+  }
 `;
 
 const StyledInputLabel= styled(InputLabel)<{error?: boolean}>`
@@ -78,7 +83,7 @@ const StyledInputLabel= styled(InputLabel)<{error?: boolean}>`
   color: ${({error = false}) => error ? '#EB5E55' : '#353238'};
   
   &.Mui-focused {
-    color: ${({error = false}) => error ? '#EB5E55' : '#0086A8 !important'};
+    color: #0086A8 !important;
   }
   
   &.MuiInputLabel-shrink {

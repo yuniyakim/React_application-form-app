@@ -1,6 +1,14 @@
-import styled from 'styled-components';
+import React from 'react';
+import {default as styledComponents} from 'styled-components';
+import {styled} from '@mui/material/styles';
+import {CircularProgress} from "@mui/material";
 
-const Button = styled.div<{disabled?: boolean}>`
+interface DivProps extends React.HTMLAttributes<HTMLDivElement> {
+  disabled?: boolean,
+  loading?: boolean,
+}
+
+const StyledButton = styledComponents.div<{disabled?: boolean}>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,5 +29,19 @@ const Button = styled.div<{disabled?: boolean}>`
     background-color: ${({disabled = false}) => disabled ? '#E3E3E3' : '#00657E'};
   }
 `;
+
+const StyledCircularProgress = styled(CircularProgress)<{loading?: boolean}>`
+  color: #FFFFFF;
+  display: ${({loading = false}) => loading ? 'flex' : 'none'};
+`;
+
+const Button: React.FC<DivProps> = (props) => {
+  return (
+    <StyledButton disabled={props.disabled} onClick={props.onClick}>
+      {props.children}
+      <StyledCircularProgress loading={props.loading} />
+    </StyledButton>
+  )
+}
 
 export default Button;

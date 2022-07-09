@@ -6,6 +6,7 @@ import {InjectedFormProps, reduxForm, submit} from 'redux-form';
 import {useDispatch} from 'react-redux';
 import TextField from "./TextField";
 import validate from "./validate";
+import {CircularProgress} from '@mui/material';
 
 const FormContainer = styled.div`
   display: flex;
@@ -24,7 +25,9 @@ const FormComponent: React.FC<InjectedFormProps> = (props) => {
 
   return (
     <FormContainer>
-      <Button disabled={props.pristine || props.invalid} onClick={onSubmitClick}>click</Button>
+      <Button disabled={props.pristine || props.invalid} onClick={onSubmitClick} loading>
+        click
+      </Button>
       <Button disabled>don't click</Button>
       <TextField required fieldName="name" placeholder="Иван" />
       <Select required fieldName="field1" selectValues={['first', 'second', 'third']} />

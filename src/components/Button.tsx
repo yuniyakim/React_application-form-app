@@ -1,7 +1,7 @@
 import React from 'react';
 import {default as styledComponents} from 'styled-components';
 import {styled} from '@mui/material/styles';
-import {CircularProgress} from "@mui/material";
+import {CircularProgress} from '@mui/material';
 
 interface ButtonProps extends React.HTMLAttributes<HTMLDivElement> {
   disabled?: boolean,
@@ -9,7 +9,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLDivElement> {
   size?: 'small'|'medium',
 }
 
-const StyledButton = styledComponents.div<{disabled?: boolean, size?: 'small'|'medium'}>`
+const StyledButton = styledComponents.div<ButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,9 +31,8 @@ const StyledButton = styledComponents.div<{disabled?: boolean, size?: 'small'|'m
   }
 `;
 
-const StyledCircularProgress = styled(CircularProgress)<{loading?: boolean}>`
+const StyledCircularProgress = styled(CircularProgress)`
   color: #FFFFFF;
-  display: ${({loading = false}) => loading ? 'flex' : 'none'};
   width: 30px !important;
   height: 30px !important;
 `;
@@ -41,8 +40,7 @@ const StyledCircularProgress = styled(CircularProgress)<{loading?: boolean}>`
 const Button: React.FC<ButtonProps> = (props) => {
   return (
     <StyledButton disabled={props.disabled} onClick={props.onClick} size={props.size}>
-      {props.loading && ! props.disabled ? '' : props.children}
-      <StyledCircularProgress loading={props.loading && !props.disabled} />
+      {props.loading && !props.disabled ? <StyledCircularProgress /> : props.children}
     </StyledButton>
   )
 }

@@ -5,7 +5,7 @@ import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 import {createTextMask} from 'redux-form-input-masks';
 
-const StyledTextField = styled(TextFieldMUI)<{error?: boolean, size?: 'small'|'medium', hidden?: boolean}>`
+const StyledTextField = styled(TextFieldMUI)<TextFieldProps>`
   display: ${({hidden = false}) => hidden ? 'none' : 'flex'};
   width: ${({size = 'undefined'}) => size === 'small' ? '180px' : size === 'medium' ? '380px' : '300px'};
   margin-top: 8.625px;

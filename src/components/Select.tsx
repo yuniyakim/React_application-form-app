@@ -1,15 +1,15 @@
 import React from "react";
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
+import FormControl, {FormControlProps} from '@mui/material/FormControl';
+import InputLabel, {InputLabelProps} from '@mui/material/InputLabel';
 import {default as SelectMUI, SelectProps} from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-import {Data} from "../types/data";
+import {Data} from '../types/data';
 
-const StyledFormControl = styled(FormControl)<{hidden?: boolean}>`
+const StyledFormControl = styled(FormControl)<FormControlProps>`
   display: ${({hidden = false}) => hidden ? 'none' : 'flex'};
   margin-top: 8.625px;
   margin-bottom: ${({error = false}) => error ? '15px' : '20px'};
@@ -19,7 +19,7 @@ const StyledFormControl = styled(FormControl)<{hidden?: boolean}>`
   }
 `;
 
-const StyledSelect = styled(SelectMUI)<{error?: boolean, size?: 'small'|'medium'}>`
+const StyledSelect = styled(SelectMUI)<SelectProps>`
   width: ${({size = 'undefined'}) => size === 'small' ? '180px' : size === 'medium' ? '380px' : '300px'};
   text-align: start;
   background-color: #FFFFFF;
@@ -76,7 +76,7 @@ const StyledMenuItem = styled(MenuItem)`
   }
 `;
 
-const StyledInputLabel= styled(InputLabel)<{error?: boolean}>`
+const StyledInputLabel= styled(InputLabel)<InputLabelProps>`
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   font-size: 14px;

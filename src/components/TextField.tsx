@@ -11,10 +11,11 @@ import {createTextMask} from 'redux-form-input-masks';
 //     }
 // `;
 
-const StyledTextField = styled(TextFieldMUI)<{error?: boolean, size?: 'small'|'medium'}>`
+const StyledTextField = styled(TextFieldMUI)<{error?: boolean, size?: 'small'|'medium', hidden?: boolean}>`
+  display: ${({hidden = false}) => hidden ? 'none' : 'flex'};
   width: ${({size = 'undefined'}) => size === 'small' ? '180px' : size === 'medium' ? '380px' : '300px'};
   margin-top: 8.625px;
-  //margin-bottom: 20px;
+  margin-bottom: 20px;
 
   .Mui-focused {
     .MuiOutlinedInput-notchedOutline {
@@ -70,6 +71,7 @@ const StyledTextField = styled(TextFieldMUI)<{error?: boolean, size?: 'small'|'m
 `;
 
 const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
+                                                                            hidden,
                                                                             size,
                                                                             placeholder,
                                                                             input,
@@ -78,6 +80,7 @@ const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
                                                                             ...custom
                                                                           }) => (
   <StyledTextField
+    hidden={hidden}
     size={size}
     error={!!(touched && error)}
     {...input}
@@ -87,15 +90,22 @@ const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
     label={label}
     placeholder={placeholder}
     InputLabelProps={{shrink: true}}
-    helperText={!!(touched && error) ? error : ' '}
+    helperText={!!(touched && error) ? error : ''}
   />
 );
 
-const TextField = (props: {fieldName: string, label: string, placeholder: string, size?: 'small'|'medium', mask?: string}) => {
+const TextField = (props: {fieldName: string, label: string, placeholder: string, size?: 'small'|'medium', mask?: string, hidden?: boolean}) => {
   if (!props.mask) {
     return (
       <FormControl>
-        <Field name={props.fieldName} component={TextFieldComponent} label={props.label} placeholder={props.placeholder} size={props.size} />
+        <Field
+          name={props.fieldName}
+          component={TextFieldComponent}
+          label={props.label}
+          placeholder={props.placeholder}
+          size={props.size}
+          hidden={props.hidden}
+        />
       </FormControl>
     )
   }
@@ -114,6 +124,7 @@ const TextField = (props: {fieldName: string, label: string, placeholder: string
         label={props.label}
         placeholder={props.placeholder}
         size={props.size}
+        hidden={props.hidden}
         {...mask}
       />
     </FormControl>

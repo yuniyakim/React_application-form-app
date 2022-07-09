@@ -8,8 +8,8 @@ import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
-const StyledFormControl = styled(FormControl)`
-  //width: 100%;
+const StyledFormControl = styled(FormControl)<{hidden?: boolean}>`
+  display: ${({hidden = false}) => hidden ? 'none' : 'flex'};
   margin-top: 8.625px;
   //margin-bottom: 20px;
 
@@ -95,6 +95,7 @@ const StyledFormHelperText= styled(FormHelperText)`
 `
 
 const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
+                                                                      hidden,
                                                                       size,
                                                                       input,
                                                                       label,
@@ -103,7 +104,7 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
                                                                       ...custom
                                                                     }) => (
 
-  <StyledFormControl>
+  <StyledFormControl hidden={hidden}>
     <StyledInputLabel error={!!(touched && error)}>{label}</StyledInputLabel>
       <StyledSelect
         size={size}
@@ -121,9 +122,9 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
   </StyledFormControl>
 );
 
-const Select = (props: {fieldName: string, label: string, selectValues: string[], size?: 'small'|'medium'}) => {
+const Select = (props: {fieldName: string, label: string, selectValues: string[], size?: 'small'|'medium', hidden?: boolean}) => {
   return (
-    <Field name={props.fieldName} component={SelectComponent} label={props.label} size={props.size}>
+    <Field name={props.fieldName} component={SelectComponent} label={props.label} size={props.size} hidden={props.hidden}>
       {props.selectValues.map((value) => (
         <StyledMenuItem key={value} value={value}>
           {value}

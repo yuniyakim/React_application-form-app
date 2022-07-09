@@ -42,7 +42,7 @@ const Button: React.FC<ButtonProps> = (props) => {
   return (
     <StyledButton disabled={props.disabled} onClick={props.onClick} size={props.size}>
       {props.loading && ! props.disabled ? '' : props.children}
-      <StyledCircularProgress loading={props.loading && ! props.disabled} />
+      <StyledCircularProgress loading={props.loading && !props.disabled} />
     </StyledButton>
   )
 }

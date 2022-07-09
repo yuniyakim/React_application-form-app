@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import Button from "./Button";
+import TextField from "./TextField";
 import Select from "./Select";
+import ShowHideButton from "./ShowHideButton";
+import Button from "./Button";
 import {InjectedFormProps, reduxForm, reset, submit} from 'redux-form';
 import {useDispatch} from 'react-redux';
-import TextField from "./TextField";
 import validate from "./validate";
 
 const FormContainer = styled.div`
@@ -12,24 +13,39 @@ const FormContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 440px;
+  min-width: 440px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 20px 0;
+  padding-top: 40px;
+  padding-bottom: 40px;
 `;
 
 const RowContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: flex-end;
+  width: 380px;
+`;
+
+const ShowHideContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
   width: 380px;
+  margin-bottom: 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
 `;
 
 const FormComponent: React.FC<InjectedFormProps> = (props) => {
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const onSubmitClick = () => {
+    dispatch(submit('ApplicationForm'));
     setIsSubmitting(true);
     setTimeout(() => {
-      dispatch(submit("ApplicationForm"));
       setIsSubmitting(false);
     },2000);
   };
@@ -38,7 +54,7 @@ const FormComponent: React.FC<InjectedFormProps> = (props) => {
     <FormContainer>
       <RowContainer>
         <TextField fieldName="name" label="Ваше имя *" placeholder="Иван" size="small" />
-        <TextField fieldName="phone" label="Номер телефона *" placeholder="+7 (000) 000-00-00" size="small" mask="+7 (999) 999-99-99" />
+        <TextField fieldName="phone" label="Номер телефона *" placeholder="+7 (000) 000-00-00" size="small" mask="+9 (999) 999-99-99" />
       </RowContainer>
       <RowContainer>
         <TextField fieldName="email" label="E-mail *" placeholder="example@skdesign.ru" size="small" />
@@ -47,10 +63,13 @@ const FormComponent: React.FC<InjectedFormProps> = (props) => {
       <Select fieldName="city" label="Выберите город *" selectValues={['first', 'second', 'third']} size="medium" />
       <TextField fieldName="company" label="Название организации/студии" placeholder="SK Design" size="medium" />
 
+      <ShowHideContainer>
+        {expanded ? 'Скрыть дополнительные поля' : 'Показать дополнительные поля'}
+        <ShowHideButton expanded={expanded} onClick={() => setExpanded(!expanded)} />
+      </ShowHideContainer>
 
-
-      <TextField fieldName="recipient" label="Получатель" placeholder="ФИО" size="medium" />
-      <Select fieldName="resource" label="Откуда узнали про нас?" selectValues={['one', 'two', 'three']} size="medium" />
+      <TextField fieldName="recipient" label="Получатель" placeholder="ФИО" size="medium" hidden={!expanded} />
+      <Select fieldName="resource" label="Откуда узнали про нас?" selectValues={['one', 'two', 'three']} size="medium" hidden={!expanded} />
       <Button disabled={props.pristine || props.invalid} onClick={onSubmitClick} loading={isSubmitting} size="medium">
         Отправить заявку
       </Button>
@@ -59,14 +78,19 @@ const FormComponent: React.FC<InjectedFormProps> = (props) => {
 }
 
 const logResults = (values: Object) => {
-  console.log(JSON.stringify(values, null, 2));
+  setTimeout(() => {
+    console.log(JSON.stringify(values, null, 2));
+  }, 2000);
 };
 
-const resetForm = (result: Object, dispatch: Function) =>
-  dispatch(reset('ApplicationForm'));
+const resetForm = (result: Object, dispatch: Function) => {
+  setTimeout(() => {
+    dispatch(reset('ApplicationForm'));
+  }, 2000);
+}
 
 export const Form = reduxForm<{}>({
-  form: "ApplicationForm",
+  form: 'ApplicationForm',
   onSubmit: logResults,
   onSubmitSuccess: resetForm,
   validate

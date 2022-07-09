@@ -1,5 +1,9 @@
 export interface FormParams {
   name: string;
-  field1: string;
-  field2: string;
+  phone: string;
+  email: string;
+  link: string;
+  city: string;
+  recipient: string;
+  resource: string;
 }

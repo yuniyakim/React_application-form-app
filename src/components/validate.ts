@@ -4,15 +4,31 @@ const validate = (values: FormParams): any => {
   const errors: any = {};
 
   if (!values.name) {
-    errors.name = 'Name required';
+    errors.name = 'Обязательное поле';
+  } else if (values.name.length < 2) {
+    errors.name = 'Неккоректное имя';
   }
 
-  if (!values.field1) {
-    errors.field1 = 'Field1 required';
+  if (!values.phone) {
+    errors.phone = 'Обязательное поле';
+  } else if (values.phone.length < 2) {
+    errors.phone = 'Неккоректный номер';
   }
 
-  if (!values.field2) {
-    errors.field2 = 'Field2 required';
+  if (!values.email) {
+    errors.email = 'Обязательное поле';
+  } else if (!/.+@.+\..+/i.test(values.email)) {
+    errors.email = 'Неккоректный e-mail';
+  }
+
+  if (!values.link) {
+    errors.link = 'Обязательное поле';
+  } else if (values.link.length < 3) {
+    errors.link = 'Неккоректная ссылка';
+  }
+
+  if (!values.city) {
+    errors.city = 'Обязательное поле';
   }
 
   return errors;

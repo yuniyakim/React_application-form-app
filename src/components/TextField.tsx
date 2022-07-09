@@ -86,7 +86,7 @@ const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
     label={label}
     placeholder={placeholder}
     InputLabelProps={{shrink: true}}
-    helperText={!!(touched && error) ? 'Обязательное поле' : ' '}
+    helperText={!!(touched && error) ? error : ' '}
   />
 );
 

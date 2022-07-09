@@ -117,7 +117,7 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
         IconComponent={KeyboardArrowDownRoundedIcon}
         MenuProps={{ disablePortal: true }}
       />
-    <StyledFormHelperText error={!!(touched && error)}>{!!(touched && error) ? 'Обязательное поле' : ' '}</StyledFormHelperText>
+    <StyledFormHelperText error={!!(touched && error)}>{!!(touched && error) ? error : ' '}</StyledFormHelperText>
   </StyledFormControl>
 );
 

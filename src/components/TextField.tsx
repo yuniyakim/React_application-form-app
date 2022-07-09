@@ -5,21 +5,15 @@ import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 import {createTextMask} from 'redux-form-input-masks';
 
-// const StyledFormControl = styled(FormControl)`
-//   .MuiInputLabel-root {
-//     color: ${({error = false}) => error ? 'green' : 'yellow};'//'#EB5E55' : '#353238'};
-//     }
-// `;
-
 const StyledTextField = styled(TextFieldMUI)<{error?: boolean, size?: 'small'|'medium', hidden?: boolean}>`
   display: ${({hidden = false}) => hidden ? 'none' : 'flex'};
   width: ${({size = 'undefined'}) => size === 'small' ? '180px' : size === 'medium' ? '380px' : '300px'};
   margin-top: 8.625px;
-  margin-bottom: 20px;
+  margin-bottom: ${({error = false}) => error ? '15px' : '20px'};
 
   .Mui-focused {
     .MuiOutlinedInput-notchedOutline {
-      border-color: #0086A8;
+      border-color: #0086A8 !important;
       border-radius: 8px;
     }
   }
@@ -30,9 +24,7 @@ const StyledTextField = styled(TextFieldMUI)<{error?: boolean, size?: 'small'|'m
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
     font-size: 14px;
-    //color: ${({error = false}) => error ? 'green' : 'pink'};//EB5E55
-    //color: #353238;
-    border: 2px solid #E3E3E3;
+    border: 2px solid ${({error = false}) => error ? '#EB5E55 !important' : '#E3E3E3'};
     border-radius: 8px;
   }
 
@@ -41,7 +33,7 @@ const StyledTextField = styled(TextFieldMUI)<{error?: boolean, size?: 'small'|'m
   }
 
   .MuiOutlinedInput-input {
-    height: 33px;
+    height: ${({size = 'undefined'}) => size === 'small' ? '33px' : size === 'medium' ? '17px' : '19px'};
     border-radius: 8px;
     font-family: 'Open Sans', sans-serif;
     font-weight: 400;
@@ -54,10 +46,19 @@ const StyledTextField = styled(TextFieldMUI)<{error?: boolean, size?: 'small'|'m
 
   // Label
   .MuiInputLabel-root {
+    padding-top: 4px;
     font-family: 'SF UI Display', sans-serif;
     font-weight: 400;
     font-size: 12px;
     color: ${({error = false}) => error ? '#EB5E55' : '#353238'};
+    
+    &.Mui-focused {
+      color: #0086A8;
+    }
+  }
+
+  legend {
+    font-size: 9px;
   }
 
   // Helper

@@ -25,7 +25,7 @@ const FormContainer = styled.div`
 const RowContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   width: 380px;
 `;
 

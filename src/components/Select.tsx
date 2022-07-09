@@ -12,7 +12,7 @@ import {Data} from "../types/data";
 const StyledFormControl = styled(FormControl)<{hidden?: boolean}>`
   display: ${({hidden = false}) => hidden ? 'none' : 'flex'};
   margin-top: 8.625px;
-  //margin-bottom: 20px;
+  margin-bottom: ${({error = false}) => error ? '15px' : '20px'};
 
   .MuiOutlinedInput-root {
     height: 50px;
@@ -105,7 +105,7 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
                                                                       ...custom
                                                                     }) => (
 
-  <StyledFormControl hidden={hidden}>
+  <StyledFormControl error={!!(touched && error)} hidden={hidden}>
     <StyledInputLabel error={!!(touched && error)}>{label}</StyledInputLabel>
       <StyledSelect
         size={size}
@@ -119,7 +119,7 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
         IconComponent={KeyboardArrowDownRoundedIcon}
         MenuProps={{ disablePortal: true }}
       />
-    <StyledFormHelperText error={!!(touched && error)}>{!!(touched && error) ? error : ' '}</StyledFormHelperText>
+    <StyledFormHelperText error={!!(touched && error)}>{!!(touched && error) ? error : ''}</StyledFormHelperText>
   </StyledFormControl>
 );
 

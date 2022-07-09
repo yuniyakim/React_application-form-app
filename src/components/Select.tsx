@@ -7,6 +7,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
+import {Data} from "../types/data";
 
 const StyledFormControl = styled(FormControl)<{hidden?: boolean}>`
   display: ${({hidden = false}) => hidden ? 'none' : 'flex'};
@@ -122,12 +123,13 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
   </StyledFormControl>
 );
 
-const Select = (props: {fieldName: string, label: string, selectValues: string[], size?: 'small'|'medium', hidden?: boolean}) => {
+const Select = (props: {fieldName: string, label: string, selectValues: Data[], size?: 'small'|'medium', hidden?: boolean}) => {
+
   return (
     <Field name={props.fieldName} component={SelectComponent} label={props.label} size={props.size} hidden={props.hidden}>
       {props.selectValues.map((value) => (
-        <StyledMenuItem key={value} value={value}>
-          {value}
+        <StyledMenuItem key={value.id} value={value.id}>
+          {value.name}
         </StyledMenuItem>
       ))}
     </Field>

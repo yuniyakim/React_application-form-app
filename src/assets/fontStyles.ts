@@ -1,8 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
-import OpenSans_Regular from './assets/fonts/SFUIDisplay-Regular.ttf';
-import OpenSans_Semibold from './assets/fonts/SFUIDisplay-Semibold.ttf';
-import SFUIDisplay_Regular from './assets/fonts/SFUIDisplay-Regular.ttf';
-import SFUIDisplay_Semibold from './assets/fonts/SFUIDisplay-Semibold.ttf';
+import OpenSans_Regular from './fonts/SFUIDisplay-Regular.ttf';
+import OpenSans_Semibold from './fonts/SFUIDisplay-Semibold.ttf';
+import SFUIDisplay_Regular from './fonts/SFUIDisplay-Regular.ttf';
+import SFUIDisplay_Semibold from './fonts/SFUIDisplay-Semibold.ttf';
 
 const FontStyles = createGlobalStyle`
   @font-face {

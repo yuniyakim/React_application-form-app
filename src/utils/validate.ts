@@ -1,4 +1,4 @@
-import { FormParams } from './form.d';
+import { FormParams } from '../types/form';
 
 const validate = (values: FormParams): any => {
   const errors: any = {};

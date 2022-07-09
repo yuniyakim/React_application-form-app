@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {Form} from "./Form";
 import {Provider} from "react-redux";
 import logo from '../assets/logo.svg';
-import store from '../store';
+import store from '../utils/store';
 
 const ApplicationContainer = styled.div`
   display: flex;

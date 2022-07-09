@@ -8,25 +8,39 @@ import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
-const StyledFormControl = styled(FormControl)`
+const StyledFormControl = styled(FormControl)<{error?: boolean}>`
   margin-top: 8.625px;
   margin-bottom: 20px;
+  
+  .MuiInputLabel-root {
+    &.Mui-focused {
+      color: ${({error = false}) => error ? '#EB5E55' : '#0086A8'};
+    }
+
+    color: ${({error = false}) => error ? '#EB5E55' : '#828282'};
+  }
 
   .MuiOutlinedInput-root {
     height: 48px;
   }
 `;
 
-const StyledSelect = styled(SelectMUI)`
+const StyledSelect = styled(SelectMUI)<{error?: boolean}>`
   width: 300px;
   text-align: start;
   background-color: #FFFFFF;
   font-family: 'Open Sans', sans-serif;
   font-weight: 400;
   font-size: 14px;
-  color: #353238;
+  color: ${({error = false}) => error ? '#EB5E55' : '#353238'}; ;
   border-radius: 8px;
-
+  
+  //&.Mui-error {
+  //  .MuiOutlinedInput-notchedOutline {
+  //    border-color: greenyellow !important;
+  //  }
+  //}
+  
   .Mui-focused {
     .MuiOutlinedInput-notchedOutline {
       border-color: #0086A8;
@@ -35,7 +49,8 @@ const StyledSelect = styled(SelectMUI)`
   
   .MuiOutlinedInput-notchedOutline {
     height: 50px;
-    border: 2px solid #E3E3E3;
+    //border: 2px solid #E3E3E3;
+    border: 2px solid ${({error = false}) => error ? '#EB5E55 !important' : '#E3E3E3'};
   }
   
   .MuiSvgIcon-root {
@@ -47,6 +62,7 @@ const StyledSelect = styled(SelectMUI)`
 const StyledFormHelperText= styled(FormHelperText)`
   margin-top: 8px;
   margin-left: 15px;
+  color: #EB5E55 !important;
 `
 
 const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
@@ -57,7 +73,7 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
                                                                       ...custom
                                                                     }) => (
 
-  <StyledFormControl>
+  <StyledFormControl error={!!(touched && error)}>
     <InputLabel>{label}</InputLabel>
     {/*//props.required ? props.fieldName + ' *' : props.fieldName}</InputLabel>*/}
       <StyledSelect

@@ -17,6 +17,9 @@ const FormContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-width: 440px;
+
+  margin-left: 8px;
+  margin-right: 8px;
   box-shadow: rgba(100, 100, 111, 0.2) 0 7px 20px 0;
   padding-top: 40px;
   padding-bottom: 40px;

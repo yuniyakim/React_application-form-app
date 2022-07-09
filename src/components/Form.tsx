@@ -6,7 +6,10 @@ import ShowHideButton from "./ShowHideButton";
 import Button from "./Button";
 import {InjectedFormProps, reduxForm, reset, submit} from 'redux-form';
 import {useDispatch} from 'react-redux';
-import validate from "./validate";
+import validate from "../utils/validate";
+import cities from '../data/cities.json';
+import sources from '../data/sources.json';
+import {Data} from "../types/data";
 
 const FormContainer = styled.div`
   display: flex;
@@ -41,6 +44,9 @@ const FormComponent: React.FC<InjectedFormProps> = (props) => {
   const dispatch = useDispatch();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [expanded, setExpanded] = useState(false);
+  const sourcesData: Data[] = sources.map(source => {
+    return {id: source, name: source};
+  });
 
   const onSubmitClick = () => {
     dispatch(submit('ApplicationForm'));
@@ -60,7 +66,7 @@ const FormComponent: React.FC<InjectedFormProps> = (props) => {
         <TextField fieldName="email" label="E-mail *" placeholder="example@skdesign.ru" size="small" />
         <TextField fieldName="link" label="Ссылка на профиль *" placeholder="instagram.com/skde…" size="small" />
       </RowContainer>
-      <Select fieldName="city" label="Выберите город *" selectValues={['first', 'second', 'third']} size="medium" />
+      <Select fieldName="city" label="Выберите город *" selectValues={cities} size="medium" />
       <TextField fieldName="company" label="Название организации/студии" placeholder="SK Design" size="medium" />
 
       <ShowHideContainer>
@@ -69,7 +75,7 @@ const FormComponent: React.FC<InjectedFormProps> = (props) => {
       </ShowHideContainer>
 
       <TextField fieldName="recipient" label="Получатель" placeholder="ФИО" size="medium" hidden={!expanded} />
-      <Select fieldName="resource" label="Откуда узнали про нас?" selectValues={['one', 'two', 'three']} size="medium" hidden={!expanded} />
+      <Select fieldName="resource" label="Откуда узнали про нас?" selectValues={sourcesData} size="medium" hidden={!expanded} />
       <Button disabled={props.pristine || props.invalid} onClick={onSubmitClick} loading={isSubmitting} size="medium">
         Отправить заявку
       </Button>

@@ -6,7 +6,6 @@ import {InjectedFormProps, reduxForm, submit} from 'redux-form';
 import {useDispatch} from 'react-redux';
 import TextField from "./TextField";
 import validate from "./validate";
-import {CircularProgress} from '@mui/material';
 
 const FormContainer = styled.div`
   display: flex;

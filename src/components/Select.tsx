@@ -10,6 +10,11 @@ import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownR
 
 const StyledFormControl = styled(FormControl)`
   margin-top: 8.625px;
+  margin-bottom: 20px;
+
+  .MuiOutlinedInput-root {
+    height: 48px;
+  }
 `;
 
 const StyledSelect = styled(SelectMUI)`
@@ -39,6 +44,11 @@ const StyledSelect = styled(SelectMUI)`
   }
 `;
 
+const StyledFormHelperText= styled(FormHelperText)`
+  margin-top: 8px;
+  margin-left: 15px;
+`
+
 const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
                                                                       input,
                                                                       label,
@@ -60,7 +70,7 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
         label={label}
         IconComponent={KeyboardArrowDownRoundedIcon}
       />
-    {!!(touched && error) ? <FormHelperText error>{error}</FormHelperText> : ''}
+    {!!(touched && error) ? <StyledFormHelperText error>Обязательное поле</StyledFormHelperText> : ''}
   </StyledFormControl>
 );
 

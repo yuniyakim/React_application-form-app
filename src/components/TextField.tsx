@@ -1,13 +1,13 @@
 import React from "react";
 import FormControl from '@mui/material/FormControl';
 import {default as TextFieldMUI, TextFieldProps} from '@mui/material/TextField';
-import FormHelperText from '@mui/material/FormHelperText';
 import {styled} from '@mui/material/styles';
 import {Field, WrappedFieldProps} from 'redux-form';
 
 const StyledTextField = styled(TextFieldMUI)`
   width: 300px;
   margin-top: 8.625px;
+  margin-bottom: 20px;
 
   .Mui-focused {
     .MuiOutlinedInput-notchedOutline {
@@ -28,12 +28,17 @@ const StyledTextField = styled(TextFieldMUI)`
   }
 
   .MuiOutlinedInput-root {
-    height: 50px;
+    height: 48px;
   }
 
   .MuiOutlinedInput-input {
     height: 17px;
     border-radius: 8px;
+  }
+
+  .MuiFormHelperText-root {
+    margin-top: 8px;
+    margin-left: 15px;
   }
 `;
 
@@ -53,7 +58,7 @@ const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
     label={label}
     placeholder={placeholder}
     InputLabelProps={{shrink: true}}
-    helperText={!!(touched && error) ? error : ''}
+    helperText={!!(touched && error) ? 'Обязательное поле' : ''}
   />
 );
 

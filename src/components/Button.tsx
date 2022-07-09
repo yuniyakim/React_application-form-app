@@ -24,6 +24,7 @@ const StyledButton = styledComponents.div<ButtonProps>`
   
   &:hover {
     background-color: ${({disabled = false}) => disabled ? '#E3E3E3' : '#007693'};
+    cursor: ${({disabled = false}) => disabled ? 'not-allowed' : 'pointer'};
   }
   
   &:active {

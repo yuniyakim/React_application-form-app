@@ -51,6 +51,10 @@ const TextParagraph = styled.p`
 const TextLink = styled.a`
   color: #0086A8;
   text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Application = () => {

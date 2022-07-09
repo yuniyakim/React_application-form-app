@@ -10,10 +10,10 @@ import {Field, WrappedFieldProps} from 'redux-form';
 //     }
 // `;
 
-const StyledTextField = styled(TextFieldMUI)<{error?: boolean}>`
-  width: 300px;
+const StyledTextField = styled(TextFieldMUI)<{error?: boolean, size?: 'small'|'medium'}>`
+  width: ${({size = 'undefined'}) => size === 'small' ? '180px' : size === 'medium' ? '380px' : '300px'};
   margin-top: 8.625px;
-  margin-bottom: 20px;
+  //margin-bottom: 20px;
 
   .Mui-focused {
     .MuiOutlinedInput-notchedOutline {
@@ -69,6 +69,7 @@ const StyledTextField = styled(TextFieldMUI)<{error?: boolean}>`
 `;
 
 const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
+                                                                            size,
                                                                             placeholder,
                                                                             input,
                                                                             label,
@@ -76,6 +77,7 @@ const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
                                                                             ...custom
                                                                           }) => (
   <StyledTextField
+    size={size}
     error={!!(touched && error)}
     {...input}
     {...custom}
@@ -84,16 +86,14 @@ const TextFieldComponent: React.FC<WrappedFieldProps & TextFieldProps> = ({
     label={label}
     placeholder={placeholder}
     InputLabelProps={{shrink: true}}
-    helperText={!!(touched && error) ? 'Обязательное поле' : ''}
+    helperText={!!(touched && error) ? 'Обязательное поле' : ' '}
   />
 );
 
-const TextField = (props: {fieldName: string, label: string, required?: boolean, placeholder: string}) => {
+const TextField = (props: {fieldName: string, label: string, placeholder: string, size?: 'small'|'medium'}) => {
   return (
     <FormControl>
-      {/*<InputLabel>{props.required ? props.fieldName + '*' : props.fieldName}</InputLabel>*/}
-      <Field name={props.fieldName} component={TextFieldComponent} label={props.label} placeholder={props.placeholder} />
-      {/*{props.required ? <FormHelperText error>Обязательное поле</FormHelperText> : <></>}*/}
+      <Field name={props.fieldName} component={TextFieldComponent} label={props.label} placeholder={props.placeholder} size={props.size} />
     </FormControl>
   )
 }

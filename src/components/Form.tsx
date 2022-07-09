@@ -15,6 +15,13 @@ const FormContainer = styled.div`
   width: 440px;
 `;
 
+const RowContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 380px;
+`;
+
 const FormComponent: React.FC<InjectedFormProps> = (props) => {
   const dispatch = useDispatch();
 
@@ -24,13 +31,23 @@ const FormComponent: React.FC<InjectedFormProps> = (props) => {
 
   return (
     <FormContainer>
-      <Button disabled={props.pristine || props.invalid} onClick={onSubmitClick} loading>
-        click
+      <RowContainer>
+        <TextField fieldName="name" label="Ваше имя *" placeholder="Иван" size="small" />
+        <TextField fieldName="phone" label="Номер телефона *" placeholder="+7 (000) 000-00-00" size="small" />
+      </RowContainer>
+      <RowContainer>
+        <TextField fieldName="email" label="E-mail *" placeholder="example@skdesign.ru" size="small" />
+        <TextField fieldName="link" label="Ссылка на профиль *" placeholder="instagram.com/skde…" size="small" />
+      </RowContainer>
+      <Select fieldName="city" label="Выберите город *" selectValues={['first', 'second', 'third']} size="medium" />
+      <TextField fieldName="company" label="Название организации/студии" placeholder="SK Design" size="medium" />
+
+
+      <TextField fieldName="recipient" label="Получатель" placeholder="ФИО" size="medium" />
+      <Select fieldName="resource" label="Откуда узнали про нас?" selectValues={['one', 'two', 'three']} size="medium" />
+      <Button disabled={props.pristine || props.invalid} onClick={onSubmitClick} loading size="medium">
+        Отправить заявку
       </Button>
-      <Button disabled>don't click</Button>
-      <TextField required fieldName="name" label="Ваше имя *" placeholder="Иван" />
-      <Select required fieldName="field1" label="Выберите город *" selectValues={['first', 'second', 'third']} />
-      <Select fieldName="field2" label="Выберите город * " selectValues={['one', 'two', 'three']} />
     </FormContainer>
   );
 }

@@ -9,16 +9,17 @@ import {Field, WrappedFieldProps} from 'redux-form';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
 const StyledFormControl = styled(FormControl)`
+  //width: 100%;
   margin-top: 8.625px;
-  margin-bottom: 20px;
+  //margin-bottom: 20px;
 
   .MuiOutlinedInput-root {
     height: 50px;
   }
 `;
 
-const StyledSelect = styled(SelectMUI)<{error?: boolean}>`
-  width: 300px;
+const StyledSelect = styled(SelectMUI)<{error?: boolean, size?: 'small'|'medium'}>`
+  width: ${({size = 'undefined'}) => size === 'small' ? '180px' : size === 'medium' ? '380px' : '300px'};
   text-align: start;
   background-color: #FFFFFF;
   font-family: 'Open Sans', sans-serif;
@@ -49,10 +50,14 @@ const StyledSelect = styled(SelectMUI)<{error?: boolean}>`
 
   // Dropdown list
   .MuiPaper-root {
-    padding-top: 0;
-    padding-bottom: 0;
     border: 1px solid #E3E3E3;
-    border-radius: 8px;
+
+    .MuiList-root {
+      padding-top: 0;
+      padding-bottom: 0;
+      border: 1px solid #E3E3E3;
+      border-radius: 8px;
+    }
   }
 `;
 
@@ -90,6 +95,7 @@ const StyledFormHelperText= styled(FormHelperText)`
 `
 
 const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
+                                                                      size,
                                                                       input,
                                                                       label,
                                                                       meta: {touched, error},
@@ -100,6 +106,7 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
   <StyledFormControl>
     <StyledInputLabel error={!!(touched && error)}>{label}</StyledInputLabel>
       <StyledSelect
+        size={size}
         error={!!(touched && error)}
         {...input}
         {...custom}
@@ -110,13 +117,13 @@ const SelectComponent: React.FC<WrappedFieldProps & SelectProps> = ({
         IconComponent={KeyboardArrowDownRoundedIcon}
         MenuProps={{ disablePortal: true }}
       />
-    {!!(touched && error) ? <StyledFormHelperText error>Обязательное поле</StyledFormHelperText> : ''}
+    <StyledFormHelperText error={!!(touched && error)}>{!!(touched && error) ? 'Обязательное поле' : ' '}</StyledFormHelperText>
   </StyledFormControl>
 );
 
-const Select = (props: { fieldName: string, label: string, selectValues: string[], required?: boolean }) => {
+const Select = (props: {fieldName: string, label: string, selectValues: string[], size?: 'small'|'medium'}) => {
   return (
-    <Field name={props.fieldName} component={SelectComponent} label={props.label} warning={''}>
+    <Field name={props.fieldName} component={SelectComponent} label={props.label} size={props.size}>
       {props.selectValues.map((value) => (
         <StyledMenuItem key={value} value={value}>
           {value}

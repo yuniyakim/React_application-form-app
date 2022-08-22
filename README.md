@@ -1,4 +1,4 @@
-# Тестовое задание [![Build Status](https://app.travis-ci.com/yuniyakim/React_application-app.svg?branch=master)](https://app.travis-ci.com/yuniyakim/React_application-app)
+# Тестовое задание [![Build Status](https://app.travis-ci.com/yuniyakim/React_application-form-app.svg?branch=master)](https://app.travis-ci.com/yuniyakim/React_application-form-app)
 Макет: https://www.figma.com/file/I2RCamxFW7q8luwXLxHeax (в папке с заданием так же есть файл
 *.fig дублирующий содержимое макета Figma)
 
